@@ -90,7 +90,6 @@ func (w *worker) job() {
 				vv := 1
 				w.nameCount[string(name)] = &vv
 			}
-
 		}
 	}
 }
@@ -223,19 +222,23 @@ func main() {
 	}
 	fmt.Printf("Donations time: : %v\n", time.Since(start))
 
-	names := make(map[string]int)
-	for _, w := range p.workers {
+	names := p.workers[0].nameCount
+	for _, w := range p.workers[1:] {
 		for k, v := range w.nameCount {
-			names[k] += *v
+			if vv, ok := names[k]; ok {
+				*vv += *v
+			} else {
+				names[k] = v
+			}
 		}
 	}
 
 	commonName := ""
 	commonCount := 0
 	for name, count := range names {
-		if count > commonCount {
+		if *count > commonCount {
 			commonName = name
-			commonCount = count
+			commonCount = *count
 		}
 	}
 
