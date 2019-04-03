@@ -1,0 +1,3 @@
+Extraction = Col1(string) '|' Col2(string) ~'|' Col3(string) ~'|' Col4(string) ~'|' Time(uint64) '|' Col6(string) ~'|' State(string) ~'|' Name(string) '|';
+
+Name = Last(string) ", " First(string) ?' ';
